@@ -45,6 +45,7 @@ export default {
             password:null,
             name:null,
             feedback:null,
+            profilePic:null,
         }
     },
     methods:{
@@ -60,7 +61,10 @@ export default {
                     if(doc.exists){
                         this.feedback = 'This name is taken'
                     }else{
-                        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(error => {
+                        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( cred => {
+                                console.log(cred.user)
+
+                        }).catch(error => {
                         this.feedback =  error.message
                         })
                         
@@ -76,14 +80,16 @@ export default {
                 firebase.auth().signInWithPopup(provider).then(result =>{
                     const token = result.credential.accessToken;
                     const user = result.user;
-                    return user
                 }).catch(error =>{
                     let errorCode = error.code;
                 })
+                
             }
         },
         created(){
-            console.log(`the person logged in is ${this.user}`)
+            const loggedInUser = firebase.auth().currentUser;
+            // this.profilePic = loggedInUser.photoURL;
+            console.log(loggedInUser.photoURL)
         }
     }
 
