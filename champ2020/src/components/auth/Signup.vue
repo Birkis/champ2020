@@ -79,13 +79,22 @@ export default {
                 firebase.auth().signInWithPopup(provider).then(result =>{
                     const token = result.credential.accessToken;
                     const user = result.user;
+                    // this.user_id = result.user.uid;
+                    // Get user Objects and set auth values on the user  fortsette på .then()
+                    db.collection('users').add({
+                        name:result.user.displayName,
+                        email:result.user.email,
+                        user_id:result.user.uid,
+                        profilePic:result.user.photoURL
+                    }).then(()=> {
+                        this.$router.push({name:'Home'})
+                    })
                 }).catch(error =>{
                     let errorCode = error.code;
                 })
-                
             },
    
-        }
+        },
     }
 
 </script>
