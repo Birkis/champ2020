@@ -1,6 +1,6 @@
 <template>
 <div class="navbar">
-    <nav class="teal darken-1">
+    <nav class="teal lighten-2">
         <div class="container">
             <a href="" class="brand-logo left">Champ2020</a>
             <ul class="right">
