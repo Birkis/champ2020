@@ -26,9 +26,6 @@
             </div>
     </form>
 
-    <div class="container center">
-        <button class="btn green" @click.prevent="settingIt">check shit out</button>
-    </div>
         
 
 
@@ -49,9 +46,7 @@ export default {
             password:null,
             name:null,
             feedback:null,
-            profilePic:null,
             user_id:null,
-            loggedInUser:null
         }
     },
     methods:{
@@ -89,19 +84,7 @@ export default {
                 })
                 
             },
-        settingIt(){
-            this.name = this.loggedInUser.displayName
-            this.profilePic = this.loggedInUser.photoURL
-            this.email = this.loggedInUser.email
-            this.user_id = this.loggedInUser.uid
-        }
    
-        },
-        created(){
-            setTimeout(()=>{
-             this.loggedInUser = firebase.auth().currentUser
-            },1000);
-            
         }
     }
 
