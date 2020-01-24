@@ -16,7 +16,7 @@
             </div>
             <p class="center red-text" v-if="feedback">{{feedback}}</p>
             <div class="field center orange-button">
-                <button class="btn deep-orange">Signup</button>
+                <button class="btn deep-orange">signupEmail</button>
             </div>
         </form>
           <p class="center">or</p>
@@ -25,6 +25,10 @@
             <button class="btn blue white-text">Log in with Facebook</button>
             </div>
     </form>
+
+    <div class="container center">
+        <button class="btn green" @click.prevent="settingIt">check shit out</button>
+    </div>
         
 
 
@@ -46,10 +50,12 @@ export default {
             name:null,
             feedback:null,
             profilePic:null,
+            user_id:null,
+            loggedInUser:null
         }
     },
     methods:{
-        signup(){
+        signupEmail(){
             if(this.name && this.email && this.password){
                 this.slug = slugify(this.name, {
                     replacement: '-',
@@ -63,7 +69,6 @@ export default {
                     }else{
                         firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( cred => {
                                 console.log(cred.user)
-
                         }).catch(error => {
                         this.feedback =  error.message
                         })
@@ -71,8 +76,7 @@ export default {
                     }
                 })
             }else{
-                this.feedback= 'You need to enter a name'
-                
+                this.feedback= 'You need to enter a name'  
             }
         },
         signUpFacebook(){
@@ -84,12 +88,20 @@ export default {
                     let errorCode = error.code;
                 })
                 
-            }
+            },
+        settingIt(){
+            this.name = this.loggedInUser.displayName
+            this.profilePic = this.loggedInUser.photoURL
+            this.email = this.loggedInUser.email
+            this.user_id = this.loggedInUser.uid
+        }
+   
         },
         created(){
-            const loggedInUser = firebase.auth().currentUser;
-            // this.profilePic = loggedInUser.photoURL;
-            console.log(loggedInUser.photoURL)
+            setTimeout(()=>{
+             this.loggedInUser = firebase.auth().currentUser
+            },1000);
+            
         }
     }
 
