@@ -60,7 +60,10 @@ export default {
                     if(doc.exists){
                         this.feedback = 'This name is taken'
                     }else{
-                        this.feedback = 'Go for it'
+                        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(error => {
+                        this.feedback =  error.message
+                        })
+                        
                     }
                 })
             }else{
@@ -94,7 +97,7 @@ h2 {
 
 .signup {
     max-width: 500px;
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .orange-button {
