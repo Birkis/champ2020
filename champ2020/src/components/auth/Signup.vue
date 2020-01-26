@@ -81,7 +81,7 @@ export default {
                     const user = result.user;
                     // this.user_id = result.user.uid;
                     // Get user Objects and set auth values on the user  fortsette på .then()
-                    db.collection('users').add({
+                    db.collection('users').doc(result.user.uid).set({
                         name:result.user.displayName,
                         email:result.user.email,
                         user_id:result.user.uid,

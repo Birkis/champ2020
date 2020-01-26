@@ -1,21 +1,34 @@
 <template>
-    <div class="container">
 
-        <div class="card">
-            <div class="card-content">
-                <img class="circle" :src="profilePic" alt="">
-                <h1 class="">This is your profile, {{name}}</h1>
-                <p>Your email is: {{email}}</p>
+<div class="container">
+    <div class="card">
+        <div class="card-image">
+          <img :src="profilePic">
+          <span class="card-title">{{name}}</span>
+        </div>
+        <div class="card-content">
+          <form action="">
+            <label for="bio">bio</label>
+            <input type="text" name="bio" v-model="bio">
+            <label for="phone">Phone number</label>
+            <input type="text" name="phone" v-model="phone">
             
-
-
+            <div class="field center">
+            <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
             </div>
             
+          </form>
+          
+          
+                  </div>
+        <div class="card-action">
+          <a href="#">{{email}}</a>
         </div>
-       
-
     </div>
 
+
+</div>
+    
 </template>
 
 <script>
@@ -31,6 +44,10 @@ export default {
             name:null,
             email:null,
             profilePic:null,
+            bio:null,
+            phone:null,
+            dob:null,
+
 
         }
     },
@@ -38,8 +55,19 @@ export default {
         updateId(){
             this.userID = this.$route.params.user_id
             db.collection('users')
-        }
-    },
+        },
+        updateProfile(){
+            let bio = this.bio;
+            let user_id =  firebase.auth().currentUser.uid;
+            let ref = db.collection('users').doc(user_id).update({
+                bio,
+                phone:this.phone
+            })
+           
+           
+            
+            }    
+        },
     watch: {
       $route: 'updateId'
 
@@ -67,5 +95,15 @@ export default {
 h1 {
     font-size: 1.8em;
 }
+
+.card {
+    max-width: 250px;;
+}
+
+img {
+  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  filter: blur(5px);
+}
+
 
 </style>
