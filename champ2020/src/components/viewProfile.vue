@@ -12,15 +12,12 @@
             <input type="text" name="bio" v-model="bio">
             <label for="phone">Phone number</label>
             <input type="text" name="phone" v-model="phone">
-            
             <div class="field center">
             <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
             </div>
-            
           </form>
-          
-          
-                  </div>
+        </div>
+        
         <div class="card-action">
           <a href="#">{{email}}</a>
         </div>
