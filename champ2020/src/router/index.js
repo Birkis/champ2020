@@ -24,7 +24,7 @@ export default new Router({
       name: 'Login',
       component: Login
     },{
-      path:'/viewProfile/:user_id',
+      path:'/viewProfile/',
       name:'ViewProfile',
       component: ViewProfile
     }

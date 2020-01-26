@@ -12,15 +12,29 @@
             <input type="text" name="bio" v-model="bio">
             <label for="phone">Phone number</label>
             <input type="text" name="phone" v-model="phone">
-            <div class="field center">
-            <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
+
+            <!-- Is Trainer Switch -->
+            <div class="switch">
+                <label>
+                Off
+                <input type="checkbox" >
+                <span class="lever"></span>
+                On
+                </label>
             </div>
+             
+            <div class="">
+            <a href="#">{{email}}</a>
+            </div>
+            
+            <div class="field center">
+                <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
+            </div>
+
+            <p class="red-text center">{{feedback}}</p>
           </form>
         </div>
-        
-        <div class="card-action">
-          <a href="#">{{email}}</a>
-        </div>
+       
     </div>
 
 
@@ -44,6 +58,8 @@ export default {
             bio:null,
             phone:null,
             dob:null,
+            feedback:null,
+            istrainer:false,
 
 
         }
@@ -59,11 +75,12 @@ export default {
             let ref = db.collection('users').doc(user_id).update({
                 bio,
                 phone:this.phone
+            }).catch(err => {
+                this.feedback=err.message
             })
-           
-           
-            
-            }    
+            this.feedback = 'The info was updated!'
+            },
+              
         },
     watch: {
       $route: 'updateId'
@@ -72,13 +89,15 @@ export default {
     created(){
         // find the user_id of current user
         let user_id =  firebase.auth().currentUser.uid
-        let res = db.collection('users').where('user_id','==', user_id).get().then(res =>{
+        db.collection('users').where('user_id','==', user_id).get().then(res =>{
                  res.forEach(doc=>{
                      this.name = doc.data().name
                      this.email = doc.data().email
-                     this.profilePic=doc.data().profilePic
-                 })
-       
+                     this.profilePic = doc.data().profilePic
+                     this.bio = doc.data().bio
+                     this.phone = doc.data().phone
+                 }) 
+                console.log(this.bio)
         })
         }
     }
@@ -100,6 +119,9 @@ h1 {
 img {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
   filter: blur(5px);
+}
+.btn {
+    margin-top:10px;
 }
 
 

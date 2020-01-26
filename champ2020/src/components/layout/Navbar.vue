@@ -12,6 +12,7 @@
                 <li v-if="!user"><router-link :to="{ name: 'Login' }">Login</router-link></li>
                 <li v-if="user" @click.prevent="logout" >Log out</li>
                 <img class="center-align circle" :src="this.profilePic" alt="">
+                
             </ul>
         </div>
     </nav>
