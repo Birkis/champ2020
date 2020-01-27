@@ -4,87 +4,92 @@
     <div class="row">
         <div class="col s12">
 
-                <div class="card">
-        <div class="card-image">
-          <img :src="profilePic">
-          <span class="card-title">{{name}}</span>
-        </div>
-        <div class="card-content">
+            <div class="card">
+                <div class="card-image">
+                <img :src="profilePic">
+                <span class="card-title">{{name}}</span>
+                </div>
+                    <div class="card-content">
 
             
-            <!-- THE FORM -->
-            
-        <form action="">
-            <!-- INTERESTS -->
-            <label for="interests">My interests</label>
-            <input type="text" name="interests" v-model="interests">
+                    <!-- THE FORM -->
+                    
+                    <form action="">
+                        <!-- INTERESTS -->
+                        <label for="interests">My interests</label>
+                        <input type="text" name="interests" v-model="interests">
 
-            <!-- GOAL -->
-            <label for="goal">My goal</label>
-            <input type="text" name="goal" v-model="goal">
+                        <!-- GOAL -->
+                        <label for="goal">My goal</label>
+                        <input type="text" name="goal" v-model="goal">
 
-            <!-- GENDER -->
-            <label for="gender">Gender</label>
-            <input type="text" name="gender" v-model="gender">
+                        <!-- GENDER -->
+                        <label for="gender">Gender</label>
+                        <input type="text" name="gender" v-model="gender">
 
-            <!-- DOB -->
-            <label for="dob">Date of Birth</label>
-            <input type="date" name="dob" v-model="dob">
+                        <!-- DOB -->
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob" v-model="dob">
 
-            <!-- MOTTO -->
-            <label for="motto">My motto</label>
-            <input type="text" name="motto" v-model="motto">
+                        <!-- MOTTO -->
+                        <label for="motto">My motto</label>
+                        <input type="text" name="motto" v-model="motto">
 
-            <!-- postcode -->
-            <label for="postcode">My postcode</label>
-            <input type="number" name="postcode" v-model="postcode">
+                        <!-- postcode -->
+                        <label for="postcode">My postcode</label>
+                        <input type="number" name="postcode" v-model="postcode">
 
-            <!-- BIO -->
-            <label for="bio">bio</label>
-            <input type="text" name="bio" v-model="bio">
-            
-            <!-- PHONE -->
-            <label for="phone">Phone number</label>
-            <input type="tel" name="phone" v-model="phone">
+                        <!-- BIO -->
+                        <label for="bio">bio</label>
+                        <input type="text" name="bio" v-model="bio">
+                        
+                        <!-- PHONE -->
+                        <label for="phone">Phone number</label>
+                        <input type="tel" name="phone" v-model="phone">
 
-            <!-- Is Trainer Switch -->
-            <label for="trainer">I'm a personal trainer</label>
-            <div class="switch" name="trainer" >
-                <label>
-                Off
-                <input type="checkbox" >
-                <span class="lever"></span>
-                On
-                </label>
+                        <!-- Is Trainer Switch -->
+                        <label for="trainer">I'm a personal trainer</label>
+                        <div class="switch" name="trainer" >
+                            <label>
+                            Off
+                            <input type="checkbox" >
+                            <span class="lever"></span>
+                            On
+                            </label>
+                        </div>
+                        
+                        <!-- EMAIL -->
+                        <div class="myEmail">
+                        <label for="myEmail">My email: </label> 
+                        <input type="email" name="email" v-model="email">
+                        </div>
+                        
+                        <input type="range" name="points" min="0" max="10">
+
+
+
+                        <!-- SUBMIT -->
+                        <div class="field center">
+                            <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
+                        </div>
+
+                        <p class="red-text center">{{feedback}}</p>
+                    </form>
+                </div>
+
+                  <!-- Modal Structure -->
+                    <div id="modal1" class="modal">
+                        <div class="modal-content">
+                        <h4>Modal Header</h4>
+                        <p>A bunch of text</p>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                        </div>
+                    </div>
+
             </div>
-             
-            <!-- EMAIL -->
-            <div class="myEmail">
-            <label for="myEmail">My email: </label> 
-            <input type="email" name="email" v-model="email">
-            </div>
-            
-            <input type="range" name="points" min="0" max="10">
-
-
-
-            <!-- SUBMIT -->
-            <div class="field center">
-                <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
-            </div>
-
-            <p class="red-text center">{{feedback}}</p>
-        </form>
         </div>
-       
-    </div>
-
-
-
-        </div>
-
-
-
     </div>
 
 
@@ -138,11 +143,15 @@ export default {
                 postcode:this.postcode,
                 gender:this.gender,
                 goal:this.goal,
-                dob:this.dob
+                dob:this.dob,
+                motto:this.motto,
+                interests: this.interests
             }).catch(err => {
                 this.feedback=err.message
             })
-            this.feedback = 'The info was updated!'
+            alert("Your profile info was updated")
+            //this.feedback = 'The info was updated!'
+            console.log(this.interests)
             },
               
         },
@@ -167,7 +176,6 @@ export default {
                      this.interests=doc.data().interests
                      this.goal=doc.data().goal
                  }) 
-                console.log(this.bio)
         })
         }
     }
