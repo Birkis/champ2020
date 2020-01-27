@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import ViewProfile from '@/components/ViewProfile'
+import CreateSession from '@/components/CreateSession'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path:'/viewProfile/',
       name:'ViewProfile',
       component: ViewProfile
+    },
+    {
+      path: '/CreateSession/',
+      name:'CreateSession',
+      component: CreateSession
     }
 
   ]
