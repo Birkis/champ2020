@@ -1,6 +1,6 @@
 <template>
     <div class="container signup">
-        <form class="card-panel" action="" @submit.prevent="signup">
+        <form class="card-panel" action="" @submit.prevent="signupEmail">
             <h2 class="center grey-darken-4-text">Sign up old school</h2>
             <div class="field">
                 <label for="email">Email</label>
@@ -16,7 +16,7 @@
             </div>
             <p class="center red-text" v-if="feedback">{{feedback}}</p>
             <div class="field center orange-button">
-                <button class="btn deep-orange">signupEmail</button>
+                <button class="btn deep-orange">signup Email</button>
             </div>
         </form>
           <p class="center">or</p>
@@ -52,27 +52,23 @@ export default {
     methods:{
         signupEmail(){
             if(this.name && this.email && this.password){
-                this.slug = slugify(this.name, {
-                    replacement: '-',
-                    lower: true,
-                    remove: /[*+~.()'"!:@]/g
-                })
-                let ref = db.collection('users').doc(this.slug)
-                ref.get().then(doc => {
-                    if(doc.exists){
-                        this.feedback = 'This name is taken'
-                    }else{
-                        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( cred => {
-                                console.log(cred.user)
+                // this.slug = slugify(this.name, {
+                //     replacement: '-',
+                //     lower: true,
+                //     remove: /[*+~.()'"!:@]/g
+                // })
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( cred => {
+                        //db.collection('User')
+                        db.collection('users').add().
+                        console.log(cred.user.uid)
+
                         }).catch(error => {
                         this.feedback =  error.message
                         })
                         
                     }
-                })
-            }else{
-                this.feedback= 'You need to enter a name'  
-            }
+                }
+          
         },
         signUpFacebook(){
                 const provider = new firebase.auth.FacebookAuthProvider();
@@ -93,8 +89,6 @@ export default {
                     let errorCode = error.code;
                 })
             },
-   
-        },
     }
 
 </script>

@@ -1,20 +1,55 @@
 <template>
 
 <div class="container">
-    <div class="card">
+    <div class="row">
+        <div class="col s12">
+
+                <div class="card">
         <div class="card-image">
           <img :src="profilePic">
           <span class="card-title">{{name}}</span>
         </div>
         <div class="card-content">
-          <form action="">
+
+            
+            <!-- THE FORM -->
+            
+        <form action="">
+            <!-- INTERESTS -->
+            <label for="interests">My interests</label>
+            <input type="text" name="interests" v-model="interests">
+
+            <!-- GOAL -->
+            <label for="goal">My goal</label>
+            <input type="text" name="goal" v-model="goal">
+
+            <!-- GENDER -->
+            <label for="gender">Gender</label>
+            <input type="text" name="gender" v-model="gender">
+
+            <!-- DOB -->
+            <label for="dob">Date of Birth</label>
+            <input type="date" name="dob" v-model="dob">
+
+            <!-- MOTTO -->
+            <label for="motto">My motto</label>
+            <input type="text" name="motto" v-model="motto">
+
+            <!-- postcode -->
+            <label for="postcode">My postcode</label>
+            <input type="number" name="postcode" v-model="postcode">
+
+            <!-- BIO -->
             <label for="bio">bio</label>
             <input type="text" name="bio" v-model="bio">
+            
+            <!-- PHONE -->
             <label for="phone">Phone number</label>
-            <input type="text" name="phone" v-model="phone">
+            <input type="tel" name="phone" v-model="phone">
 
             <!-- Is Trainer Switch -->
-            <div class="switch">
+            <label for="trainer">I'm a personal trainer</label>
+            <div class="switch" name="trainer" >
                 <label>
                 Off
                 <input type="checkbox" >
@@ -23,19 +58,35 @@
                 </label>
             </div>
              
-            <div class="">
-            <a href="#">{{email}}</a>
+            <!-- EMAIL -->
+            <div class="myEmail">
+            <label for="myEmail">My email: </label> 
+            <input type="email" name="email" v-model="email">
             </div>
             
+            <input type="range" name="points" min="0" max="10">
+
+
+
+            <!-- SUBMIT -->
             <div class="field center">
                 <button class="btn orange center-align" name="update" @click.prevent="updateProfile" >Update</button>
             </div>
 
             <p class="red-text center">{{feedback}}</p>
-          </form>
+        </form>
         </div>
        
     </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
 
 
 </div>
@@ -60,6 +111,15 @@ export default {
             dob:null,
             feedback:null,
             istrainer:false,
+            motto:null,
+            dob:null,
+            interests:[],
+            goal:[],
+            rating:null,
+            reviews:null,
+            gender:null,
+            postcode:null,
+
 
 
         }
@@ -74,7 +134,11 @@ export default {
             let user_id =  firebase.auth().currentUser.uid;
             let ref = db.collection('users').doc(user_id).update({
                 bio,
-                phone:this.phone
+                phone:this.phone,
+                postcode:this.postcode,
+                gender:this.gender,
+                goal:this.goal,
+                dob:this.dob
             }).catch(err => {
                 this.feedback=err.message
             })
@@ -96,6 +160,12 @@ export default {
                      this.profilePic = doc.data().profilePic
                      this.bio = doc.data().bio
                      this.phone = doc.data().phone
+                     this.dob= doc.data().dob
+                     this.gender= doc.data().gender
+                     this.motto=doc.data().motto
+                     this.postcode=doc.data().postcode
+                     this.interests=doc.data().interests
+                     this.goal=doc.data().goal
                  }) 
                 console.log(this.bio)
         })
@@ -112,17 +182,19 @@ h1 {
     font-size: 1.8em;
 }
 
-.card {
-    max-width: 250px;;
-}
+
 
 img {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(5px);
+  -webkit-filter: blur(25px); /* Safari 6.0 - 9.0 */
+  filter: blur(25px);
 }
 .btn {
     margin-top:10px;
 }
 
+.myEmail{
+    margin-top:10px;
+    margin-bottom:10px;
+}
 
 </style>
