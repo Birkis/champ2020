@@ -5,6 +5,7 @@ import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import ViewProfile from '@/components/ViewProfile'
 import CreateSession from '@/components/CreateSession'
+import SessionList from '@/components/SessionList'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/CreateSession/',
       name:'CreateSession',
       component: CreateSession
+    },
+    {
+      path: '/SessionList/',
+      name: 'SessionList',
+      component: SessionList
     }
 
   ]

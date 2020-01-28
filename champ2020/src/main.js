@@ -6,6 +6,7 @@ import router from './router'
 import firebase from 'firebase'
 
 
+
 Vue.config.productionTip = false
 
 let app = null

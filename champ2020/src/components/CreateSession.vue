@@ -2,8 +2,10 @@
     <div class="container">
             <h2>Create Session</h2>
 
+
             <form action="" @submit.prevent="createSession" >
-                
+                     
+            
                 <!-- TITLE -->
                 <label for="title">Session title</label>
                 <input type="text" name="title" v-model="title">
@@ -39,7 +41,7 @@
                 <button class="btn orange field center">CREATE SESSION</button>
 
             </form>
-
+            <p v-if="feedback">{{feedback}}</p>
 
     </div>
 </template>
@@ -49,8 +51,12 @@ import firebase from 'firebase'
 import db from '@/firebase/init'
 
 
+
 export default {
     name: 'CreateSession',
+    components:{  
+         
+    },
     data(){
         return {
             title:null,
@@ -61,11 +67,36 @@ export default {
             price:null,
             category:null,
             location:null,
-
+            feedback:null,
         }
     },
-    methods:{
+    methods:{  
+        createSession(){
+             if(this.title && this.description && this.sessionStart && this.duration && this.spots && this.category && this.location){
+                    let user_id =  firebase.auth().currentUser.uid;
+                    db.collection('sessions').doc().set({
+                        host_id: user_id,
+                        title:this.title,
+                        description:this.description,
+                        sessionStart:this.sessionStart,
+                        duration:this.duration,
+                        spots:this.spots,
+                        price:this.price,
+                        category:this.category,
+                        location:this.location 
 
+                    }).then(()=> {
+                        this.$router.push({name:'Home'})
+                    })
+
+
+             } else {
+                this.feedback = "oops.. Ya need to fill out all the blanks"
+
+             }
+             
+             
+        }
 
     },
     created(){
