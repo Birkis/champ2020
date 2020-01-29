@@ -68,12 +68,16 @@ export default {
             category:null,
             location:null,
             feedback:null,
+            
         }
     },
     methods:{  
         createSession(){
              if(this.title && this.description && this.sessionStart && this.duration && this.spots && this.category && this.location){
                     let user_id =  firebase.auth().currentUser.uid;
+                    let host_name = firebase.auth().currentUser.displayName
+                    let host_pic = firebase.auth().currentUser.photoURL
+                    
                     db.collection('sessions').doc().set({
                         host_id: user_id,
                         title:this.title,
@@ -83,7 +87,9 @@ export default {
                         spots:this.spots,
                         price:this.price,
                         category:this.category,
-                        location:this.location 
+                        location:this.location,
+                        host_name,
+                        host_pic,
 
                     }).then(()=> {
                         this.$router.push({name:'Home'})
