@@ -66,11 +66,11 @@ export default {
                         user_id:res.user.uid,
                         email:this.email
                     })
-                })
-            
-                        
-                    }
-                }
+                }).then(
+                    this.$router.push({name:'Home'})
+                )       
+           }
+        }
           
 
 
