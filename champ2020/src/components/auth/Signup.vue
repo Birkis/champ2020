@@ -57,18 +57,16 @@ export default {
                 //     lower: true,
                 //     remove: /[*+~.()'"!:@]/g
                 // })
-                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( cred => {
-                        //db.collection('User')
-                        db.collection('users').add().
-                        console.log(cred.user.uid)
-
-                        }).catch(error => {
-                        this.feedback =  error.message
-                        })
+                let ref = db.collection('users').get()
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+                    this.$router.push({name:'Home'})
+                )
                         
                     }
                 }
           
+
+
         },
         signUpFacebook(){
                 const provider = new firebase.auth.FacebookAuthProvider();

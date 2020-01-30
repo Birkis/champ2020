@@ -77,6 +77,7 @@ export default {
                     let user_id =  firebase.auth().currentUser.uid;
                     let host_name = firebase.auth().currentUser.displayName
                     let host_pic = firebase.auth().currentUser.photoURL
+                    let timestamp = firebase.firestore.Timestamp.now()
                     
                     db.collection('sessions').doc().set({
                         host_id: user_id,
@@ -90,6 +91,7 @@ export default {
                         location:this.location,
                         host_name,
                         host_pic,
+                        timestamp
 
                     }).then(()=> {
                         this.$router.push({name:'Home'})

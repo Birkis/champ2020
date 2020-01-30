@@ -3,8 +3,17 @@
     <nav class="teal lighten-2">
         <div class="container">
             
-            <router-link :to="{ name: 'Home' }"><a href="" class="brand-logo left">Champ2020</a></router-link>
-            
+            <div class="left">
+                <router-link :to="{ name: 'Home' }"><a href="" class="brand-logo left">Champ2020</a></router-link>
+           
+            </div>
+            <div class="center">
+                <router-link :to="{ name: 'SessionList'}">session list</router-link>
+                <router-link :to="{ name: 'CreateSession'}" >Create Session</router-link>
+           
+
+            </div>
+             
             
          
             <ul class="right">
@@ -36,7 +45,9 @@ export default {
     methods:{
         logout(){
             firebase.auth().signOut().then(()=>{
+
                 console.log("you've been signed the fuck out")
+                this.$router.push({name: 'Home'})
             })
         }
 
