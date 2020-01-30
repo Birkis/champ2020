@@ -47,6 +47,7 @@ export default {
             name:null,
             feedback:null,
             user_id:null,
+            profilePic:'http://someurl.com/picture.jpg'
         }
     },
     methods:{
@@ -58,9 +59,15 @@ export default {
                 //     remove: /[*+~.()'"!:@]/g
                 // })
                 let ref = db.collection('users').get()
-                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-                    this.$router.push({name:'Home'})
-                )
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(res =>{
+                    db.collection('users').doc(res.user.uid).set({
+                        name:this.name,
+                        profilePic:this.profilePic,
+                        user_id:res.user.uid,
+                        email:this.email
+                    })
+                })
+            
                         
                     }
                 }

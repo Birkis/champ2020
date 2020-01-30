@@ -3,20 +3,13 @@
     <nav class="teal lighten-2">
         <div class="container">
             
-            <div class="left">
-                <router-link :to="{ name: 'Home' }"><a href="" class="brand-logo left">Champ2020</a></router-link>
-           
-            </div>
-            <div class="center">
-                <router-link :to="{ name: 'SessionList'}">session list</router-link>
-                <router-link :to="{ name: 'CreateSession'}" >Create Session</router-link>
-           
-
-            </div>
-             
+            <div>
+                <ul class="right">
+                
+                <li><router-link :to="{ name: 'Home' }"><a href="" class="brand-logo left">Champ2020</a></router-link></li>
+                <li><router-link :to="{ name: 'SessionList'}">session list</router-link></li>
+                <li><router-link :to="{ name: 'CreateSession'}" >Create Session</router-link></li>
             
-         
-            <ul class="right">
                 <li v-if="!user" ><router-link :to="{ name:'Signup'}">Signup</router-link></li>
                 <li v-if="!user"><router-link :to="{ name: 'Login' }">Login</router-link></li>
                 <li v-if="user" @click.prevent="logout" >Log out</li>
@@ -24,6 +17,8 @@
                 
             </ul>
         </div>
+        </div>
+
     </nav>
   
 
