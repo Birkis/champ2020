@@ -45,22 +45,37 @@ export default {
             sessions:[],
             session_ids:[],
             name:null,
+            email:null,
+            locAtt:[]
+            
         }
 
     },
     methods:{
         bookSession(id){
-           
+            
             let timestamp = firebase.firestore.Timestamp.now()
+            let ref = db.collection('sessions').doc(id).get().then( result =>{
+                result.data().attendees.forEach( res => {
+                        this.locAtt.push(res.email) 
+                        console.log(res.email)
+                    } 
+                )
+            })
+            setTimeout(console.log(this.locAtt.length)
+
+         
+
+            
+
+
             // legge til current user i en array som hører til den session han trykker på
             // vise frem hvor mange som er påmeldt
             // Når antall påmeldte er like mye som antall plasser, så skal knappen bli uvirksom (kan bruke en v-if og en boolen for full/ikke full)
-            db.collection('sessions').doc(id).set({attendees:firebase.firestore.FieldValue.arrayUnion({name:this.name, timestamp})}, {merge:true})
             
-
-            
-      
-        }
+            //db.collection('sessions').doc(id).set({attendees:firebase.firestore.FieldValue.arrayUnion({name:this.name, email:this.email,  timestamp})}, {merge:true})
+        
+            )}
 
     },
     // laster inn alle sessions og lagrer de som en array i Sessions. Alle feltene ligger i sessions 
@@ -79,8 +94,11 @@ export default {
     },
     mounted(){
         //let me = 
-        let user = db.collection('users').doc(firebase.auth().currentUser.uid).get().then( res => this.name = res.data().name);
-        //console.log(this.name)
+        let user = db.collection('users').doc(firebase.auth().currentUser.uid).get().then( res => {
+            this.name = res.data().name
+            this.email = res.data().email
+            });
+        
         
       
     }
